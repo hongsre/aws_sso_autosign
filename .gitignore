@@ -1,0 +1,9 @@
+.venv
+.vscode
+.python-version
+poetry.lock
+config.yaml
+config_*.yaml
+config_file/*/
+__pycache__/
+*.log

@@ -1,0 +1,25 @@
+init:
+  profile_name: sso-session llz
+  sso_start_url: https://lg-llz.awsapps.com/start#
+  sso_region: us-east-1
+  sso_registration_scopes: sso:account:access
+
+info:
+  sso_id: 
+  sso_pw: 
+  otp_key:
+  profile_infos:
+    real:
+      name: profile name
+      sso_session: llz
+      sso_account_id: AWS Account ID
+      sso_role_name: custom_sso_role_name
+      region: ap-northeast-2
+      output: json  
+    qa:
+      name: profile name
+      sso_session: llz
+      sso_account_id: AWS Account ID
+      sso_role_name: custom_sso_role_name
+      region: ap-northeast-2
+      output: json
