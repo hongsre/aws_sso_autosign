@@ -39,19 +39,19 @@ def find_data_file(filename):
         datadir = os.path.dirname(__file__)
     return os.path.join(datadir, filename)
 
-def execute_aws_cli(profile_name):
+def execute_aws_cli():
     # AWS SSO 로그인 명령 실행
-    log_file_path = f"{base}/aws_sso_login_{profile_name}.log"
-    command = f"aws sso login --no-browser --profile {profile_name}"
-    print(f"{profile_name} sso login 명령 실행")
+    log_file_path = f"{base}/aws_sso_login_llz.log"
+    command = f"aws sso login --no-browser"
+    print(f"llz sso login 명령 실행")
     with open(log_file_path, "w") as log_file:
         subprocess.run(command, shell=True, stdout=log_file, stderr=subprocess.STDOUT, text=True)
-    print(f"{profile_name} sso login 명령 완료")
+    print(f"llz sso login 명령 완료")
 
     return False
 
-def monitor_log_and_execute_selenium(profile_name, otp_key, username, passwd):
-    log_file_path =  f"{base}/aws_sso_login_{profile_name}.log"  # 로그 파일 경로
+def monitor_log_and_execute_selenium(otp_key, username, passwd):
+    log_file_path =  f"{base}/aws_sso_login_llz.log"  # 로그 파일 경로
     base_url = None
     user_code = None
 
@@ -125,22 +125,21 @@ def main():
     profile_data = create_profile_data(config['info']['profile_infos'])
     if config['info']['profile_create']:
         apply_profile_to_aws_config(profile_data)
-    for env, details in profile_data.items():
-        # AWS CLI 실행 프로세스 시작
-        profile_name = details['name']
-        log_file_path = f"{base}/aws_sso_login_{profile_name}.log"
-        # 파일을 쓰기 모드로 열기
-        with open(log_file_path, 'w') as file:
-            pass  # 파일에 아무것도 쓰지 않음
-        aws_cli_process = Process(target=execute_aws_cli, args=(profile_name,))
-        aws_cli_process.start()
+    # AWS CLI 실행 프로세스 시작
+    profile_name = details['name']
+    log_file_path = f"{base}/aws_sso_login_llz.log"
+    # 파일을 쓰기 모드로 열기
+    with open(log_file_path, 'w') as file:
+        pass  # 파일에 아무것도 쓰지 않음
+    aws_cli_process = Process(target=execute_aws_cli, args=(profile_name,))
+    aws_cli_process.start()
 
-        # Selenium 작업 프로세스 시작
-        selenium_process = Process(target=monitor_log_and_execute_selenium, args=(profile_name, otp_key, username, passwd,))
-        selenium_process.start()
-        aws_cli_process.join()
-        selenium_process.join()
-        # time.sleep(10)
+    # Selenium 작업 프로세스 시작
+    selenium_process = Process(target=monitor_log_and_execute_selenium, args=(otp_key, username, passwd,))
+    selenium_process.start()
+    aws_cli_process.join()
+    selenium_process.join()
+    # time.sleep(10)
 
 
 if __name__ == '__main__':
