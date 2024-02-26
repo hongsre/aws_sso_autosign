@@ -8,6 +8,7 @@ info:
   sso_id: 
   sso_pw: 
   otp_key:
+  profile_create: true
   profile_infos:
     real:
       name: profile name
