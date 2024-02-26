@@ -86,7 +86,7 @@ def monitor_log_and_execute_selenium(otp_key, username, passwd):
 
 def init_aws_config(config):
     init_infos = config['init']
-    session_name = config['init']['profile_name']
+    session_name = f"sso-session {config['init']['profile_name']}"
     init_infos.pop('profile_name', None)
     for key in init_infos:
         update_and_save_aws_config(session_name, key, init_infos[key])
