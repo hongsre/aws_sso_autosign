@@ -1,5 +1,5 @@
 init:
-  sso_session_name: llz
+  sso_session_name: sso_session_name
   sso_start_url: sso_login_url
   sso_region: us-east-1
   sso_registration_scopes: sso:account:access
