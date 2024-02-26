@@ -1,5 +1,4 @@
 import sys
-import params_parser
 import os
 from multiprocessing import Process, freeze_support
 from sso_sign import SSO_SIGN
