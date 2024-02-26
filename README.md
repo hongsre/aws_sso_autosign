@@ -1,7 +1,7 @@
 # sso autosign
 
 ```
-sso login을 자동화를 위한 스크립트입니다.
+sso login 자동화를 위한 스크립트입니다.
 sso session을 로그인하고, 해당 세션을 이용하도록 profile을 등록해주면 
 설정한 profile 계정에 대해서도 인증 세션을 사용하는 것으로 확인 됨.
 
