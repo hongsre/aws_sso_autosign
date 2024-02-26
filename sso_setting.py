@@ -36,7 +36,7 @@ def find_data_file(filename):
 def execute_aws_cli():
     # AWS SSO 로그인 명령 실행
     log_file_path = f"{base}/aws_sso_login_llz.log"
-    command = f"aws sso login --no-browser"
+    command = f"aws sso login --no-browser --sso-session llz"
     print(f"llz sso login 명령 실행")
     with open(log_file_path, "w") as log_file:
         subprocess.run(command, shell=True, stdout=log_file, stderr=subprocess.STDOUT, text=True)
