@@ -8,12 +8,8 @@ class PARAMS():
         ''' Command line argument processing '''
         parser = argparse.ArgumentParser(
             description='client config')
-        parser.add_argument('-v', '--version', action='store', default=None,
-                            help='client config set version')
         parser.add_argument('-n', '--gamecode', action='store', default=None,
                             help='game code')
-        parser.add_argument('-c', '--version-code', action='store', default=None,
-                            help='client config set version code')
         args = parser.parse_args(argv)
         self.version = args.version
         self.gamecode = args.gamecode
