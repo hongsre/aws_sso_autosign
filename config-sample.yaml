@@ -1,6 +1,6 @@
 init:
   profile_name: sso-session llz
-  sso_start_url: https://lg-llz.awsapps.com/start#
+  sso_start_url: sso_login_url
   sso_region: us-east-1
   sso_registration_scopes: sso:account:access
 
