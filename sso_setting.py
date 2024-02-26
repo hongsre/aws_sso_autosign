@@ -9,13 +9,8 @@ import re
 import time
 import yaml
 
-params = params_parser.PARAMS()
-
-params.parse_cli_args()
-
-CODE = params.gamecode
 base = os.path.dirname(os.path.abspath(__file__))
-config_path = f"{base}/config_{CODE}.yaml"
+config_path = f"{base}/config_llz.yaml"
 
 def get_config(config_path):
     print(config_path)
