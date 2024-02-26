@@ -1,15 +1,18 @@
 # sso autosign
 
-> sso login을 자동화를 위한 스크립트입니다.
+```
+sso login을 자동화를 위한 스크립트입니다.
 sso session을 로그인하고, 해당 세션을 이용하도록 profile을 등록해주면 
 설정한 profile 계정에 대해서도 인증 세션을 사용하는 것으로 확인 됨.
 
 Config 의 profile create 설정을 true로 설정하면
+Config 의 [init][sso_session_name] 값을 불러와
 init 함수를 실행하여 sso session login 설정을 추가하고, 
 해당 세션을 이용하는 profile 데이터를 추가 함.
 
 데이터는 Config의 profile_infos에 포함된 데이터를 사용
-> 
+```
+ 
 
 # 필수 설치가 필요한 모듈
 
