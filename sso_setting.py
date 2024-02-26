@@ -123,7 +123,8 @@ def main():
     username = config['info']['id']
     passwd = config['info']['pw']
     profile_data = create_profile_data(config['info']['profile_infos'])
-    apply_profile_to_aws_config(profile_data)
+    if config['info']['profile_create']:
+        apply_profile_to_aws_config(profile_data)
     for env, details in profile_data.items():
         # AWS CLI 실행 프로세스 시작
         profile_name = details['name']
