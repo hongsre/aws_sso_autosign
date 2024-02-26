@@ -125,7 +125,7 @@ def main():
     # 파일을 쓰기 모드로 열기
     with open(log_file_path, 'w') as file:
         pass  # 파일에 아무것도 쓰지 않음
-    aws_cli_process = Process(target=execute_aws_cli, args=(profile_name,))
+    aws_cli_process = Process(target=execute_aws_cli)
     aws_cli_process.start()
 
     # Selenium 작업 프로세스 시작
