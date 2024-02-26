@@ -9,7 +9,7 @@ import time
 import yaml
 
 base = os.path.dirname(os.path.abspath(__file__))
-config_path = f"{base}/config_llz.yaml"
+config_path = f"{base}/config.yaml"
 
 def get_config(config_path):
     print(config_path)
@@ -33,19 +33,16 @@ def find_data_file(filename):
         datadir = os.path.dirname(__file__)
     return os.path.join(datadir, filename)
 
-def execute_aws_cli():
-    # AWS SSO 로그인 명령 실행
-    log_file_path = f"{base}/aws_sso_login_llz.log"
-    command = f"aws sso login --no-browser --sso-session llz"
-    print(f"llz sso login 명령 실행")
+def execute_aws_cli(log_file_path, sso_session):
+    command = f"aws sso login --no-browser --sso-session {sso_session}"
+    print(f"{sso_session} sso login 명령 실행")
     with open(log_file_path, "w") as log_file:
         subprocess.run(command, shell=True, stdout=log_file, stderr=subprocess.STDOUT, text=True)
-    print(f"llz sso login 명령 완료")
-
+    print(f"{sso_session} sso login 명령 완료")
+ 
     return False
 
-def monitor_log_and_execute_selenium(otp_key, username, passwd):
-    log_file_path =  f"{base}/aws_sso_login_llz.log"  # 로그 파일 경로
+def monitor_log_and_execute_selenium(log_file_path, otp_key, username, passwd):
     base_url = None
     user_code = None
 
@@ -113,23 +110,24 @@ def main():
     # result = True
     otp_key = config['info']['otp_key']
     # profile_names = config['info']['profile_names']
-    username = config['info']['id']
-    passwd = config['info']['pw']
-    profile_data = create_profile_data(config['info']['profile_infos'])
+    username = config['info']['sso_id']
+    passwd = config['info']['sso_pw']
+    sso_session_name = config['info']['sso_session_name']
     if config['info']['profile_create']:
+        profile_data = create_profile_data(config['info']['profile_infos'])
         init_aws_config(config)
         apply_profile_to_aws_config(profile_data)
     # AWS CLI 실행 프로세스 시작
     profile_name = details['name']
-    log_file_path = f"{base}/aws_sso_login_llz.log"
+    log_file_path = f"{base}/aws_sso_login_{sso_session_name}.log"
     # 파일을 쓰기 모드로 열기
     with open(log_file_path, 'w') as file:
         pass  # 파일에 아무것도 쓰지 않음
-    aws_cli_process = Process(target=execute_aws_cli)
+    aws_cli_process = Process(target=execute_aws_cli, args=(log_file_path, sso_session_name,))
     aws_cli_process.start()
 
     # Selenium 작업 프로세스 시작
-    selenium_process = Process(target=monitor_log_and_execute_selenium, args=(otp_key, username, passwd,))
+    selenium_process = Process(target=monitor_log_and_execute_selenium, args=(log_file_path, otp_key, username, passwd,))
     selenium_process.start()
     aws_cli_process.join()
     selenium_process.join()
