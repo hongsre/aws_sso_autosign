@@ -117,13 +117,13 @@ def apply_profile_to_aws_config(profile_data):
 def main():
     config = get_config(config_path)
     # result = True
-    init_aws_config(config)
     otp_key = config['info']['otp_key']
     # profile_names = config['info']['profile_names']
     username = config['info']['id']
     passwd = config['info']['pw']
     profile_data = create_profile_data(config['info']['profile_infos'])
     if config['info']['profile_create']:
+        init_aws_config(config)
         apply_profile_to_aws_config(profile_data)
     # AWS CLI 실행 프로세스 시작
     profile_name = details['name']
