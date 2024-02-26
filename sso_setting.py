@@ -96,9 +96,10 @@ def create_profile_data(profile_infos):
         profile_data[profile_name] = value
     return profile_data
 
-def apply_profile_to_aws_config(profile_data):
+def apply_profile_to_aws_config(profile_data, sso_session_name):
     """YAML 파일에서 추출한 프로필 정보를 AWS config 파일에 적용하는 함수"""
     for env, details in profile_data.items():
+        details['sso_session'] = sso_session_name
         section = f"profile {details['name']}"
         for key, value in details.items():
             if key != 'name':
@@ -115,7 +116,7 @@ def main():
     if config['info']['profile_create']:
         profile_data = create_profile_data(config['info']['profile_infos'])
         init_aws_config(config)
-        apply_profile_to_aws_config(profile_data)
+        apply_profile_to_aws_config(profile_data, sso_session_name)
     # AWS SSO LOGIN 실행 프로세스 시작
     profile_name = details['name']
     log_file_path = f"{base}/aws_sso_login_{sso_session_name}.log"
