@@ -21,7 +21,7 @@ init 함수를 실행하여 sso session login 설정을 추가하고,
 name = "web_cron"
 version = "0.1.0"
 description = ""
-authors = ["seongi.hong <seongi.hong@line.games>"]
+authors = ["seongi.hong <seongi.hong>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -60,16 +60,16 @@ info:
   # aws profile 생성이 필요없다면 아래 값을 false로 설정
   profile_create: true
   profile_infos:
-    real:
+    profile1:
       name: profile_name
-      sso_session: llz
+      sso_session: sso_session_name
       sso_account_id: AWS Account ID
       sso_role_name: custom_sso_role_name
       region: ap-northeast-2
       output: json  
-    qa:
+    profile2:
       name: profile_name
-      sso_session: llz
+      sso_session: sso_session_name
       sso_account_id: AWS Account ID
       sso_role_name: custom_sso_role_name
       region: ap-northeast-2
