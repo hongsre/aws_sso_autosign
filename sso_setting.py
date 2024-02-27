@@ -111,14 +111,13 @@ def main():
     otp_key = config['info']['otp_key']
     username = config['info']['sso_id']
     passwd = config['info']['sso_pw']
-    sso_session_name = config['info']['sso_session_name']
+    sso_session_name = config['init']['sso_session_name']
     # profile_create가 true 면 ~/.aws/config profile 생성
     if config['info']['profile_create']:
         profile_data = create_profile_data(config['info']['profile_infos'])
         init_aws_config(config)
         apply_profile_to_aws_config(profile_data, sso_session_name)
     # AWS SSO LOGIN 실행 프로세스 시작
-    profile_name = details['name']
     log_file_path = f"{base}/aws_sso_login_{sso_session_name}.log"
     # 파일을 쓰기 모드로 열기
     with open(log_file_path, 'w') as file:
