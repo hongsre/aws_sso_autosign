@@ -2,7 +2,7 @@
 name = "web_cron"
 version = "0.1.0"
 description = ""
-authors = ["seongi.hong <seongi.hong@line.games>"]
+authors = ["seongi.hong <seongi.hong>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
