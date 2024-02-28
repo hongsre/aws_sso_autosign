@@ -17,12 +17,6 @@ init 함수를 실행하여 sso session login 설정을 추가하고,
 # 필수 설치가 필요한 모듈
 
 ```toml
-[tool.poetry]
-name = "web_cron"
-version = "0.1.0"
-description = ""
-authors = ["seongi.hong <seongi.hong>"]
-
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.28.1"
@@ -32,12 +26,6 @@ selenium = "^4.3.0"
 webdriver-manager = "^3.7.1"
 PyYAML = ">=6.0"
 pyotp = "^2.8.0"
-
-[tool.poetry.dev-dependencies]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
 ```
 
 # config 셋팅 방법
@@ -80,3 +68,42 @@ info:
 ```bash
 poetry run python sso_setting.py
 ```
+
+# LINUX 실행 시 
+chrome-browser 설치가 필요합니다.
+```bash
+ sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+ sudo yum install ./google-chrome-stable_current_*.rpm
+ google-chrome --version
+```
+
+# 배치로 실행하고 싶을 경우
+## linux
+```bash
+crontab -e
+
+#crontab 내용 수정
+0 */6 * * * /poetry python 경로/python /스크립트경로/sso_setting.py
+
+#:wq 저장하고 나옴
+```
+
+## wsl 
+아래 내용을 batch 파일 만들어서 스케쥴러에 등록해주시면 됩니다.
+
+```bash
+@echo off
+set base=스크립트경로
+cd %base%
+wsl /usr/bin/python3 -m poetry run python sso_setting.py
+```
+
+## windows
+wsl과 마찬가지로 batch 파일 만들어서 스케줄러에 등록해주시면 됩니다.
+```bash
+@echo off
+set base=스크립트경로
+cd %base%
+.venv\Scripts\python.exe sso_setting.py -n gm
+```
+
