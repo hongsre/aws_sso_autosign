@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from get_otp import get_otp_code
 import os
+import time
 
 class SSO_SIGN():
   def setup_method(self):
@@ -58,4 +59,5 @@ class SSO_SIGN():
     self.driver.find_element(By.ID, "cli_login_button").click()
     self.driver.implicitly_wait(60)
     print("allow click success")
+    time.sleep(5)
     self.close_windows()
